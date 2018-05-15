@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade Calculation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <style>
+@import url('http://fonts.googleapis.com/css?family=Montserrat|Bitter');
+
+
+body {
+  background: url('http://thecodeplayer.com/u/m/b1.png') no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+h1 {
+	font: normal 32px/32px Bitter; color: white;
+	text-align: center; padding: 1em;
+}
+
+span {
+  font: normal 14px/28px Montserrat; color: hsl(180, 40%, 40%);
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+p {
+  font: normal 14px/28px Montserrat; color: hsl(180, 40%, 40%);
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.v-center {
+  vertical-align: middle;
+}
+
+input[type=number] {
+  width: 40px;
+}
+  </style>
+
+
+</head>
+<body>
+  <h1>What will be your final grade?</h1>
+  <div id="finalgrade">
+    <span class="v-center"> Q1: </span><input type="number" class="q1 v-center" min="0" max="100" value="90" accesskey="1"></input>
+    <span class="v-center"> Q2: </span><input type="number" class="q2 v-center" min="0" max="100" value="90" accesskey="2"></input>
+    <span class="v-center"> F1: </span><input type="number" class="f1 v-center" min="0" max="100" value="90" accesskey="3"></input>
+  </div>
+  <p>Result: <span id="result"></span></p>
+  <br>
+
+  <h1>What do I need for an A?</h1>
+  <div id="finalto90">
+    <span class="v-center"> Q1: </span><input type="number" class="q1 v-center" min="0" max="100" value="90" accesskey="4"></input>
+    <span class="v-center"> Q2: </span><input type="number" class="q2 v-center" min="0" max="100" value="90" accesskey="5"></input>
+  </div>
+  <p>Final needs to be over: <span id="need"></span></p>
+  <p>made by Henry Choi</p>
+  <script>
+$(document).ready(function() {
+  calc_grade();
+  calc_90();
+  $('#finalgrade').on('input',calc_grade);
+  $('#finalto90').on('input', calc_90);
+})
+
+function calc_grade() {
+  var q1=$('#finalgrade > .q1')[0].value;
+  var q2=$('#finalgrade > .q2')[0].value;
+  var f1=$('#finalgrade > .f1')[0].value;
+  var r=q1*0.4+q2*0.4+f1*0.2;
+  r=r.toFixed(2);
+  console.log(q1,q2,f1,r);
+  if(!isNaN(r)) {
+    document.getElementById('result').textContent=r.toString();
+  }
+}
+
+function calc_90() {
+  var q1=$('#finalto90 > .q1')[0].value;
+  var q2=$('#finalto90 > .q2')[0].value;
+  var f1=(90-q1*0.4-q2*0.4)/0.2;
+  f1=f1.toFixed(2);
+  console.log(q1,q2,f1);
+  if(!isNaN(f1)) {
+    document.getElementById('need').textContent=f1.toString();
+  }
+}
+  </script>
+</body>
+</html>
